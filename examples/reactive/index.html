@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .bar {
+        background-color: red;
+        -webkit-transition-property: width;
+        -webkit-transition-duration: 0.5s;
+        text-align: center;
+        padding: 3px 0;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+  <script src="../../build/build.js"></script>
+  <script id="template" type="text/html">
+    <h2 data-text="name"></h2>
+    <div class="bar" data-style="value | bar" data-text="value | round"></div>
+  </script>
+  <script>
+    var reactive = require('timoxley-reactive/lib/index.js')
+    var react = require('react')
+
+    var Stock = function(options) {
+      options = options || {}
+      this.value = options.value
+      this.name = options.name
+      react(this)
+    }
+
+    var AAPL = new Stock({
+      value: 100,
+      name: 'AAPL'
+    })
+
+    var GOOG = new Stock({
+      value: 100,
+      name: 'GOOG'
+    })
+    setInterval(function() {
+      AAPL.value += Math.random() * 5 - 2.5
+      GOOG.value += Math.random() * 5 - 2.5
+    }, 700)
+
+    var template = document.getElementById('template')
+    var StockView = function(model) {
+      this.model = model
+      this.el = document.createElement("div")
+      this.el.innerHTML = template.innerHTML
+      reactive(this.el, this.model, this)
+    }
+
+    StockView.prototype.bar = function(value) {
+      return 'width:' + value + 'px'
+    }
+    StockView.prototype.round = function(value) {
+      return Math.round(value, 2)
+    }
+
+
+    var stockViewAAPL = new StockView(AAPL)
+    var stockViewGOOG = new StockView(GOOG)
+    document.body.appendChild(stockViewAAPL.el)
+    document.body.appendChild(stockViewGOOG.el)
+
+  </script>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  </body>
+</html>
+
