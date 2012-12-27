@@ -38,5 +38,25 @@ describe('events', function() {
     })
     model.name = 'Tim'
   })
+  it('can take list of properties', function(done) {
+    var User = function(options) {
+      options = options || {}
+      this.name = options.name
+      this.age = options.age
+      react(this, ['age'])
+    }
+
+    model = new User({name: 'Tim'})
+    model.once('change name', function(value) {
+      throw new Error('Should not fire on name')
+    })
+    model.once('change', function() {
+      setTimeout(function() {
+        done()
+      }, 1)
+    })
+    model.name = 'Tim Oxley' // should not fire change
+    model.age = 27
+  })
 })
 
