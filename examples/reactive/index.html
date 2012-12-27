@@ -21,48 +21,46 @@
   <script>
     var reactive = require('timoxley-reactive/lib/index.js')
     var react = require('react')
+    var template = document.getElementById('template')
 
-    var Stock = function(options) {
-      options = options || {}
-      this.value = options.value
-      this.name = options.name
-      react(this)
+    // Data types
+    function Stock(name, value) {
+      this.name = name
+      this.value = value
     }
 
-    var AAPL = new Stock({
-      value: 100,
-      name: 'AAPL'
-    })
-
-    var GOOG = new Stock({
-      value: 100,
-      name: 'GOOG'
-    })
-    setInterval(function() {
-      AAPL.value += Math.random() * 5 - 2.5
-      GOOG.value += Math.random() * 5 - 2.5
-    }, 700)
-
-    var template = document.getElementById('template')
-    var StockView = function(model) {
+    // View
+    function StockView(model) {
       this.model = model
       this.el = document.createElement("div")
       this.el.innerHTML = template.innerHTML
-      reactive(this.el, this.model, this)
+      reactive(this.el, react(this.model), this)
     }
 
     StockView.prototype.bar = function(value) {
       return 'width:' + value + 'px'
     }
+
     StockView.prototype.round = function(value) {
       return Math.round(value, 2)
     }
 
+    // Initialize Instances //
 
+    var AAPL = new Stock('AAPL', 100)
+    var GOOG = new Stock('GOOG', 100)
     var stockViewAAPL = new StockView(AAPL)
     var stockViewGOOG = new StockView(GOOG)
+
     document.body.appendChild(stockViewAAPL.el)
     document.body.appendChild(stockViewGOOG.el)
+
+    // Just pretend we are getting data
+    // from some remote service
+    setInterval(function() {
+      AAPL.value += Math.random() * 5 - 2.5
+      GOOG.value += Math.random() * 5 - 2.5
+    }, 700)
 
   </script>
   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">

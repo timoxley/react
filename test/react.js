@@ -1,6 +1,6 @@
 var react = require('react')
 var assert = require('timoxley-assert')
-
+var Emitter = require('component-emitter')
 
 var User = function(options) {
   options = options || {}
@@ -9,11 +9,14 @@ var User = function(options) {
   react(this)
 }
 
+Emitter(User.prototype)
+
 describe('events', function() {
   var model
   beforeEach(function() {
     model = new User({name: undefined, age: 27})
   })
+
   it('fires events when properties are set', function(done) {
     model.once('change', function(prop, value) {
       assert.equal(prop, 'name')
@@ -38,6 +41,7 @@ describe('events', function() {
     })
     model.name = 'Tim'
   })
+
   it('can take list of properties', function(done) {
     var User = function(options) {
       options = options || {}
@@ -45,6 +49,8 @@ describe('events', function() {
       this.age = options.age
       react(this, ['age'])
     }
+
+    User.prototype = new Emitter
 
     model = new User({name: 'Tim'})
     model.once('change name', function(value) {

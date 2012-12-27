@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+  <script src="../../build/build.js"></script>
+  <script>
+    var react = require('react')
+
+    function Clock () {
+      this.tick()
+    }
+
+    Clock.prototype.tick = function() {
+      this.time = new Date()
+    }
+
+    Clock.prototype.enable = function() {
+      var self = this
+      self.tick()
+      setInterval(function() {
+        self.tick()
+      }, 1000)
+    }
+
+    var clock = new Clock()
+    react(clock).on('change', function(prop, newValue) {
+      document.body.innerHTML =
+        "The "+prop+" is now: " + newValue.toTimeString()
+      console.log('a read-only copy of the clock:', this)
+    })
+    clock.enable()
+
+  </script>
+  </body>
+</html>
+
