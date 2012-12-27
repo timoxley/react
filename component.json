@@ -1,15 +1,17 @@
 {
   "name": "react",
   "repo": "timoxley/react",
-  "description": "Emit reactive-compatible change events whenever object changes.",
+  "description": "Emit reactive-compatible change events when an object's properties change.",
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
-    "timoxley/assert": "*",
     "timoxley/watch": "*",
     "component/emitter": "*"
   },
-  "development": {},
+  "development": {
+    "timoxley/assert": "*",
+    "timoxley/reactive": "*"
+  },
   "license": "MIT",
   "scripts": [
     "index.js"
