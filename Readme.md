@@ -26,10 +26,10 @@
 
 ```
 
-### Use with `reactive`
+### Use with `component/reactive`
 
-If you're just using `react` with `reactive`, simply wrap your data
-with a call to `react` as you pass it into `reactive`:
+If you're using `react` with [component/reactive](https://github.com/component/reactive) you can
+simply wrap your data with `react()` as you pass it to `reactive`:
 
 ```js
   reactive(element, react(model))
@@ -57,10 +57,10 @@ AAPL.on('change value', function(value) {
 
 ```
 
-If your data source is NOT an event Emitter, `react` will return a new
-event Emitter fires `change` events whenever your original data source
-changes. This emitter will also have all the synced properties of the
-original data source, making this perfect for consumption with `reactive`.
+If your data source is not an event Emitter, `react` will return a new
+event Emitter whom fires `change` events whenever properties on your original
+data source change. This emitter will also have all the synced properties of the
+original data source, making this perfect for consumption with [component/reactive](https://github.com/component/reactive).
 
 ```js
 // Non-Emitter data type
