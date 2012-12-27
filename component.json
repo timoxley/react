@@ -2,7 +2,7 @@
   "name": "react",
   "repo": "timoxley/react",
   "description": "Emit reactive-compatible change events when an object's properties change.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "keywords": [],
   "dependencies": {
     "timoxley/watch": "*",
