@@ -17,11 +17,18 @@
 
   setInterval(function() {
     // whoa, no need to call any silly .set() methods
-    time.now = new Date()
+    clock.time = new Date()
   }, 1000)
 
-  react(data).on('change', function(prop, newValue) {
+  react(clock).on('change', function(prop, newValue, oldValue) {
     console.log("The "+prop+" is now: " + newValue)
+    // => the time is now Sat Jan 05 2013 11:38:31 GMT+0800 (SGT)
+  })
+
+  // alternatively, listen for particular property changes:
+  react(clock).on('change time', function(newValue, oldValue) {
+    console.log("The time is: " + newValue)
+    // => the time is now Sat Jan 05 2013 11:38:31 GMT+0800 (SGT)
   })
 
 ```
