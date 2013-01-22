@@ -27,6 +27,7 @@ module.exports = function react(source, properties) {
   args.push(source)
   properties && args.push(properties)
   args.push(onWatch)
+  args.push(1)
   watch.apply(undefined, args)
   return target
 }

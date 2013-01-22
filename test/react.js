@@ -64,5 +64,11 @@ describe('events', function() {
     model.name = 'Tim Oxley' // should not fire change
     model.age = 27
   })
+  it('supports recursion', function() {
+    var parent = react(Emitter({name: 'Tim'}))
+    var child = react(Emitter({name: 'Bob', parent: parent}))
+    var parent2 = react(Emitter({name: 'Jill', child: child}))
+    child.parent = parent2
+  })
 })
 
