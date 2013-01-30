@@ -44,6 +44,7 @@ simply wrap your data with `react()` as you pass it to `reactive`:
 
 ### Use with Classes
 
+
 If your data source is an event Emitter, you can use `react` in your
 data type's constructor to make all instances reactive:
 
@@ -64,10 +65,7 @@ AAPL.on('change value', function(value) {
 
 ```
 
-If your data source is not an event Emitter, `react` will return a new
-event Emitter whom fires `change` events whenever properties on your original
-data source change. This emitter will also have all the synced properties of the
-original data source, making this perfect for consumption with [component/reactive](https://github.com/component/reactive).
+`reactive` needs an `Emitter` (or something that looks like one). If the object you pass to `react` isn't an `Emitter`, `react` returns a new `Emitter` with the passed-in object set as the prototype.
 
 ```js
 // Non-Emitter data type

@@ -79,6 +79,7 @@ describe('events', function() {
     emitter.on('change name', function() {
       done()
     })
+
     item.name = 'Bob'
   })
 })
