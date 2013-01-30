@@ -12,9 +12,11 @@ var Emitter = require('emitter')
  * @api public
  */
 module.exports = function react(source, properties) {
-  var target = isEmitter(source)
-    ? source
-    : createEmitterClone(source)
+  var target = source
+  if (!isEmitter(source)) {
+    target = Object.create(source)
+    Emitter(target)
+  }
 
   var onWatch = function(prop, action, newValue, oldValue) {
     target[prop] = newValue

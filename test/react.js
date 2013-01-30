@@ -70,5 +70,15 @@ describe('events', function() {
     var parent2 = react(Emitter({name: 'Jill', child: child}))
     child.parent = parent2
   })
+  it('creates a wrapping emitter if object is not an emitter', function(done) {
+    var item = {name: 'Tim'}
+    var emitter = react(item)
+    assert.ok(emitter.on)
+    assert.ok(emitter.off)
+    assert.ok(item.on === undefined)
+    emitter.on('change name', function() {
+      done()
+    })
+    item.name = 'Bob'
+  })
 })
-
