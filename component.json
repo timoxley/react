@@ -10,7 +10,7 @@
   },
   "development": {
     "timoxley/assert": "*",
-    "timoxley/reactive": "*"
+    "component/reactive": "*"
   },
   "license": "MIT",
   "scripts": [
